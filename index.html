@@ -78,7 +78,7 @@
 
   /* ── SECTION 1: HERO ── */
   #s-hero {
-    background: linear-gradient(rgba(28,20,16,0.6), rgba(28,20,16,0.6)), url("Images/Background.png") center center/cover no-repeat;
+    background: linear-gradient(rgba(28,20,16,0.6), rgba(28,20,16,0.6)), url("Images/Background.png") center/cover;
     text-align: center;
   }
 
@@ -210,12 +210,18 @@
 
   .events-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+    grid-template-columns: 1fr 1fr;
     gap: 1px;
     max-width: 900px;
     width: 100%;
     background: rgba(212,168,67,0.15);
     border: 1px solid rgba(212,168,67,0.15);
+  }
+
+  .event-card:nth-child(3) {
+    grid-column: 1 / -1;
+    max-width: 50%;
+    margin: 0 auto;
   }
 
   .event-card {
@@ -272,7 +278,7 @@
   }
 
   .rsvp-heading {
-    font-family: 'Pinyon Script', cursive;
+    font-family: 'Petrona', serif;
     font-size: clamp(48px, 10vw, 80px);
     color: var(--maroon);
     margin-bottom: 40px;
@@ -789,9 +795,14 @@
 <!-- Falling petals canvas -->
 <canvas id="petal-canvas"></canvas>
 
-<!-- Hidden audio -->
+<!-- PETAL IMAGES (Load these from your computer) -->
+<img id="petal-img-1" src="Images/petal1.png" style="display:none;">
+<img id="petal-img-2" src="Images/petal2.png" style="display:none;">
+<img id="petal-img-3" src="Images/petal3.png" style="display:none;">
+
+<!-- Hidden audio - CHANGE THIS PATH TO YOUR MP3/MP4 FILE -->
 <audio id="bg-audio" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  <source src="./audio/themesong.mp4" type="audio/mpeg">
 </audio>
 
 <!-- Login Modal -->
@@ -1032,26 +1043,23 @@
 </section>
 
 <script>
-// ── PETAL IMAGE SVGS ──────────────────────────────────────────
-const petalSVGs = [
-  'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 30"><path d="M10 0 Q15 10 10 30 Q5 10 10 0" fill="%23C4748A"/></svg>',
-  'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 25"><ellipse cx="10" cy="10" rx="8" ry="10" fill="%23D4A843" transform="rotate(-20 10 10)"/></svg>',
-  'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25"><path d="M12.5 2 Q18 8 12.5 20 Q7 8 12.5 2" fill="%23B8860B"/></svg>'
-];
-
+// ── PETAL IMAGES ──────────────────────────────────────────────
 let petalImages = [];
 
-// Load petal images
-Promise.all(petalSVGs.map(svg => {
-  return new Promise((resolve) => {
-    const img = new Image();
-    img.src = svg;
-    img.onload = () => resolve(img);
-    img.onerror = () => resolve(null);
-  });
-})).then(imgs => {
-  petalImages = imgs.filter(img => img !== null);
-});
+// Wait for images to load
+function loadPetalImages() {
+  const img1 = document.getElementById('petal-img-1');
+  const img2 = document.getElementById('petal-img-2');
+  const img3 = document.getElementById('petal-img-3');
+  
+  if (img1 && img2 && img3) {
+    petalImages = [img1, img2, img3];
+  }
+}
+
+// Try loading immediately and also on window load
+loadPetalImages();
+window.addEventListener('load', loadPetalImages);
 
 // ── PETALS ─────────────────────────────────────────────────────
 const canvas = document.getElementById('petal-canvas');
@@ -1077,7 +1085,7 @@ function spawnPetal(startY) {
   petals.push({
     x: Math.random() * canvas.width,
     y: startY !== undefined ? startY : -20,
-    imageIndex: Math.floor(Math.random() * petalSVGs.length),
+    imageIndex: Math.floor(Math.random() * Math.max(petalImages.length, 1)),
     size: 15 + Math.random() * 15,
     color: colors[Math.floor(Math.random() * colors.length)],
     vx: (Math.random() - 0.5) * 1.2,
@@ -1095,8 +1103,19 @@ function drawPetal(p) {
   ctx.translate(p.x, p.y);
   ctx.rotate(p.rot);
   ctx.globalAlpha = p.opacity;
-  ctx.fillStyle = p.color;
-  ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+  
+  // Draw petal image if available, otherwise draw colored shape
+  if (petalImages.length > 0) {
+    const img = petalImages[p.imageIndex % petalImages.length];
+    if (img && img.complete) {
+      ctx.drawImage(img, -p.size/2, -p.size/2, p.size, p.size);
+    }
+  } else {
+    // Fallback if image not loaded
+    ctx.fillStyle = p.color;
+    ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+  }
+  
   ctx.restore();
 }
 
