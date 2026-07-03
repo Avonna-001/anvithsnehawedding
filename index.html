@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anvith weds Sneha — August 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Petrona:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --maroon: #6B0F1A;
+    --gold: #B8860B;
+    --gold-lt: #D4A843;
+    --cream: #FDF6EC;
+    --cream-dk: #F5E9D3;
+    --charcoal: #1C1410;
+    --muted: #7A6352;
+    --rose: #C4748A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--charcoal);
+    color: var(--cream);
+    font-family: 'Petrona', serif;
+    overflow-x: hidden;
+  }
+
+  /* ── MUSIC BUTTON ── */
+  #music-btn {
+    position: fixed;
+    top: 18px; right: 18px;
+    z-index: 999;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(212,168,67,0.5);
+    background: rgba(28,20,16,0.7);
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--gold-lt);
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  #music-btn:hover { border-color: var(--gold-lt); }
+  .music-bars { display: flex; gap: 2px; align-items: flex-end; height: 14px; }
+  .music-bars span {
+    width: 3px; background: var(--gold-lt); border-radius: 2px;
+    animation: musicAnim 0.8s ease-in-out infinite alternate;
+  }
+  .music-bars span:nth-child(1){ height: 5px; animation-delay: 0s; }
+  .music-bars span:nth-child(2){ height: 10px; animation-delay: 0.15s; }
+  .music-bars span:nth-child(3){ height: 7px; animation-delay: 0.3s; }
+  .music-bars span:nth-child(4){ height: 12px; animation-delay: 0.1s; }
+  .music-bars.paused span { animation-play-state: paused; }
+  @keyframes musicAnim { from { transform: scaleY(0.4); } to { transform: scaleY(1); } }
+
+  /* ── PETAL CANVAS ── */
+  #petal-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 80px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── SECTION 1: HERO ── */
+  #s-hero {
+    background: linear-gradient(rgba(28,20,16,0.6), rgba(28,20,16,0.6)), url("Images/Background.png") center center/cover no-repeat;
+    text-align: center;
+  }
+
+  .hero-logo {
+    font-family: 'Pinyon Script', cursive;
+    font-size: clamp(72px, 16vw, 140px);
+    color: var(--cream);
+    line-height: 0.9;
+    opacity: 0;
+    animation: fadeUp 1.2s ease forwards 0.5s;
+  }
+
+  .hero-ampersand { color: var(--gold); }
+
+  .hero-sub {
+    font-family: 'Petrona', serif;
+    font-size: clamp(10px, 1.8vw, 13px);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 16px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.9s;
+  }
+
+  .scroll-hint {
+    font-family: 'Petrona', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.3s, pulse 2.5s ease-in-out 2.3s infinite;
+  }
+  .scroll-hint::after {
+    content: '';
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  /* ── SECTION 2: BLESSING ── */
+  #s-blessing {
+    background: var(--cream);
+    color: var(--charcoal);
+    text-align: center;
+  }
+
+  .gold-rule {
+    width: 60px; height: 1px;
+    background: var(--gold);
+    margin: 0 auto 28px;
+  }
+
+  .blessing-om {
+    font-size: clamp(13px, 2vw, 15px);
+    letter-spacing: 0.15em;
+    color: var(--maroon);
+    margin-bottom: 24px;
+  }
+
+  .blessing-family {
+    font-family: 'Petrona', serif;
+    font-size: clamp(10px, 1.5vw, 12px);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 2;
+    max-width: 380px;
+  }
+
+  .blessing-invite {
+    font-family: 'Petrona', serif;
+    font-size: clamp(10px, 1.5vw, 11px);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 28px 0 10px;
+  }
+
+  .blessing-couple {
+    font-family: 'Pinyon Script', cursive;
+    font-size: clamp(60px, 12vw, 100px);
+    color: var(--maroon);
+    line-height: 1;
+  }
+
+  .blessing-amp { color: var(--gold); }
+
+  .blessing-daughter {
+    font-family: 'Petrona', serif;
+    font-size: clamp(10px, 1.5vw, 11px);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 20px;
+    line-height: 2;
+  }
+
+  /* ── SECTION 3: EVENTS ── */
+  #s-events {
+    background: var(--charcoal);
+    padding: 80px 24px;
+  }
+
+  .events-eyebrow {
+    font-family: 'Petrona', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .day-group {
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .day-label {
+    font-family: 'Petrona', serif;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-lt);
+    margin-bottom: 24px;
+  }
+
+  .events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+    gap: 1px;
+    max-width: 900px;
+    width: 100%;
+    background: rgba(212,168,67,0.15);
+    border: 1px solid rgba(212,168,67,0.15);
+  }
+
+  .event-card {
+    background: var(--charcoal);
+    padding: 36px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .event-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--event-color, var(--gold));
+  }
+  .event-card:hover { background: rgba(212,168,67,0.05); }
+
+  .event-name {
+    font-family: 'Pinyon Script', cursive;
+    font-size: clamp(36px, 7vw, 48px);
+    color: var(--cream);
+    margin-bottom: 16px;
+  }
+
+  .event-detail {
+    font-family: 'Petrona', serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 2.2;
+  }
+
+  .event-detail strong {
+    color: var(--cream);
+    font-weight: 500;
+  }
+
+  /* ── SECTION 4: RSVP ── */
+  #s-rsvp {
+    background: var(--cream);
+    color: var(--charcoal);
+    text-align: center;
+  }
+
+  .rsvp-eyebrow {
+    font-family: 'Petrona', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .rsvp-heading {
+    font-family: 'Pinyon Script', cursive;
+    font-size: clamp(48px, 10vw, 80px);
+    color: var(--maroon);
+    margin-bottom: 40px;
+  }
+
+  .rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: min(440px, 100%);
+    text-align: left;
+  }
+
+  .rsvp-form label {
+    font-family: 'Petrona', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .rsvp-form input,
+  .rsvp-form select,
+  .rsvp-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid rgba(107,15,26,0.2);
+    background: transparent;
+    font-family: 'Petrona', serif;
+    font-size: 16px;
+    color: var(--charcoal);
+    outline: none;
+    border-radius: 0;
+    transition: border-color 0.2s;
+    appearance: none;
+  }
+  .rsvp-form input:focus,
+  .rsvp-form select:focus,
+  .rsvp-form textarea:focus { border-color: var(--maroon); }
+
+  .guest-counter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid rgba(107,15,26,0.2);
+    padding: 8px;
+    border-radius: 4px;
+  }
+
+  .guest-counter label {
+    flex: 1;
+    margin: 0;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: left;
+  }
+
+  .guest-counter input {
+    width: 50px;
+    padding: 4px 8px;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .counter-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgba(107,15,26,0.3);
+    background: transparent;
+    color: var(--charcoal);
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s;
+  }
+  .counter-btn:hover { background: rgba(107,15,26,0.05); }
+
+  .rsvp-submit {
+    padding: 14px 32px;
+    background: var(--maroon);
+    color: var(--cream);
+    border: none;
+    font-family: 'Petrona', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+  }
+  .rsvp-submit:hover { background: #850f1f; }
+
+  .admin-link {
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    z-index: 998;
+    padding: 6px 12px;
+    background: var(--gold);
+    color: var(--charcoal);
+    text-decoration: none;
+    font-family: 'Petrona', serif;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+  }
+  .admin-link:hover { background: var(--gold-lt); }
+
+  /* ── SECTION 5: COUNTDOWN ── */
+  #s-countdown {
+    background: var(--charcoal);
+    text-align: center;
+  }
+
+  .countdown-label {
+    font-family: 'Petrona', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+
+  .countdown {
+    display: flex;
+    gap: clamp(16px, 4vw, 40px);
+    margin-bottom: 48px;
+    align-items: flex-start;
+  }
+
+  .count-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .count-num {
+    font-family: 'Petrona', serif;
+    font-size: clamp(40px, 10vw, 72px);
+    font-weight: 500;
+    color: var(--cream);
+    line-height: 1;
+    min-width: 2ch;
+    text-align: center;
+  }
+
+  .count-lab {
+    font-family: 'Petrona', serif;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .count-sep {
+    font-family: 'Petrona', serif;
+    font-size: 48px;
+    color: var(--gold);
+    line-height: 1;
+    margin-top: 4px;
+  }
+
+  /* ── SECTION 6: ALBUM ── */
+  #s-album {
+    background: var(--cream-dk);
+    color: var(--charcoal);
+    text-align: center;
+  }
+
+  .album-eyebrow {
+    font-family: 'Petrona', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .album-heading {
+    font-family: 'Pinyon Script', cursive;
+    font-size: clamp(48px, 9vw, 72px);
+    color: var(--maroon);
+    margin-bottom: 16px;
+  }
+
+  .album-sub {
+    font-family: 'Petrona', serif;
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 420px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+  }
+
+  .album-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    max-width: 600px;
+    width: 100%;
+  }
+
+  .album-frame {
+    aspect-ratio: 3/4;
+    background: rgba(107,15,26,0.06);
+    border: 1px solid rgba(107,15,26,0.12);
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: rgba(107,15,26,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .album-frame:first-child { grid-row: span 2; aspect-ratio: auto; }
+
+  .album-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 32px;
+    padding: 12px 32px;
+    border: 1px solid rgba(107,15,26,0.3);
+    font-family: 'Petrona', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .album-cta:hover { background: rgba(107,15,26,0.05); }
+
+  /* ── FOOTER ── */
+  #s-footer {
+    background: var(--charcoal);
+    text-align: center;
+    justify-content: flex-end;
+    padding-bottom: 60px;
+  }
+
+  .footer-blessing {
+    font-family: 'Petrona', serif;
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-style: italic;
+    color: var(--muted);
+    max-width: 460px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .footer-hashtag {
+    font-family: 'Petrona', serif;
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    color: var(--gold-lt);
+    margin-bottom: 24px;
+  }
+
+  .footer-logo {
+    font-family: 'Pinyon Script', cursive;
+    font-size: clamp(60px, 16vw, 110px);
+    color: rgba(255,255,255,0.06);
+    line-height: 0.85;
+    letter-spacing: -0.02em;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* ── LOGIN MODAL ── */
+  #login-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #login-modal.active {
+    display: flex;
+  }
+
+  .login-box {
+    background: var(--cream);
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    position: relative;
+  }
+
+  .close-modal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--charcoal);
+  }
+
+  .login-box h2 {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 48px;
+    color: var(--maroon);
+    margin-bottom: 30px;
+  }
+
+  .login-box label {
+    font-family: 'Petrona', serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    text-align: left;
+    margin-bottom: 6px;
+  }
+
+  .login-box input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid rgba(107,15,26,0.2);
+    background: transparent;
+    font-family: 'Petrona', serif;
+    font-size: 14px;
+    color: var(--charcoal);
+    margin-bottom: 16px;
+    border-radius: 4px;
+  }
+
+  .login-box input:focus { outline: none; border-color: var(--maroon); }
+
+  .login-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--maroon);
+    color: var(--cream);
+    border: none;
+    font-family: 'Petrona', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .login-btn:hover { background: #850f1f; }
+
+  .error-msg {
+    color: #d32f2f;
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+
+  /* ── DATA TABLE ── */
+  #data-view {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: var(--charcoal);
+    z-index: 9998;
+    overflow-y: auto;
+    padding: 40px 20px;
+  }
+
+  #data-view.active {
+    display: block;
+  }
+
+  .data-header {
+    max-width: 1200px;
+    margin: 0 auto 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .data-header h1 {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 48px;
+    color: var(--cream);
+  }
+
+  .data-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .data-btn {
+    padding: 8px 16px;
+    background: var(--gold);
+    color: var(--charcoal);
+    border: none;
+    font-family: 'Petrona', serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  .data-btn:hover { background: var(--gold-lt); }
+
+  .data-table-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    overflow-x: auto;
+  }
+
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(212,168,67,0.2);
+  }
+
+  .data-table thead {
+    background: rgba(212,168,67,0.1);
+  }
+
+  .data-table th {
+    padding: 12px;
+    text-align: left;
+    font-family: 'Petrona', serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-lt);
+    border-bottom: 1px solid rgba(212,168,67,0.2);
+  }
+
+  .data-table td {
+    padding: 12px;
+    font-family: 'Petrona', serif;
+    font-size: 13px;
+    color: var(--cream);
+    border-bottom: 1px solid rgba(212,168,67,0.1);
+  }
+
+  .data-table tr:hover { background: rgba(212,168,67,0.05); }
+
+  .close-data {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--gold);
+    color: var(--charcoal);
+    border: none;
+    padding: 8px 16px;
+    font-family: 'Petrona', serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    z-index: 10000;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.35s; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Music toggle -->
+<button id="music-btn" aria-label="Toggle music" onclick="toggleMusic()">
+  <div class="music-bars" id="music-bars">
+    <span></span><span></span><span></span><span></span>
+  </div>
+</button>
+
+<!-- Admin button -->
+<button class="admin-link" onclick="showLoginModal()">Admin</button>
+
+<!-- Falling petals canvas -->
+<canvas id="petal-canvas"></canvas>
+
+<!-- Hidden audio -->
+<audio id="bg-audio" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Login Modal -->
+<div id="login-modal">
+  <div class="login-box">
+    <button class="close-modal" onclick="closeLoginModal()">✕</button>
+    <h2>Admin Login</h2>
+    <div id="login-error" class="error-msg" style="display:none;"></div>
+    <form onsubmit="handleLogin(event)">
+      <label>Email</label>
+      <input type="email" id="login-email" placeholder="Enter email" required>
+      
+      <label>Password</label>
+      <input type="password" id="login-password" placeholder="Enter password" required>
+      
+      <button type="submit" class="login-btn">Login</button>
+    </form>
+  </div>
+</div>
+
+<!-- Data View -->
+<div id="data-view">
+  <button class="close-data" onclick="closeDataView()">✕ Back</button>
+  <div class="data-header">
+    <h1>RSVP Data</h1>
+    <div class="data-actions">
+      <button class="data-btn" onclick="downloadTableCSV()">Download CSV</button>
+      <button class="data-btn" onclick="sendToEmail()">Send to Email</button>
+    </div>
+  </div>
+  <div class="data-table-wrapper">
+    <table class="data-table" id="rsvp-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Adults</th>
+          <th>Kids</th>
+          <th>Dietary Notes</th>
+          <th>Timestamp</th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 1: HERO                       -->
+<!-- ══════════════════════════════════════ -->
+<section id="s-hero">
+  <div class="hero-logo reveal">
+    Anvith <span class="hero-ampersand">&</span> Sneha
+  </div>
+  <p class="hero-sub reveal">27 · 08 · 2026</p>
+  <p class="scroll-hint reveal">Scroll to begin</p>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 2: BLESSING                   -->
+<!-- ══════════════════════════════════════ -->
+<section id="s-blessing">
+  <div class="gold-rule reveal"></div>
+  <p class="blessing-om reveal">ॐ श्री गणेशाय नमः</p>
+
+  <p class="blessing-family reveal reveal-delay-1">
+    With the blessings of<br>
+    Smt. Kamla Devi & Late Shri Ramesh Kumar<br>
+    ——<br>
+    Smt. Sunita & Shri Vijay Sharma
+  </p>
+
+  <p class="blessing-invite reveal reveal-delay-2">invite you to celebrate the wedding of</p>
+
+  <div class="blessing-couple reveal reveal-delay-3">
+    Anvith<br>
+    <span class="blessing-amp">&</span><br>
+    Sneha
+  </div>
+
+  <p class="blessing-daughter reveal reveal-delay-3">
+    Daughter of<br>
+    Smt. Meera & Shri Ashok Gupta
+  </p>
+
+  <div class="gold-rule reveal" style="margin-top:32px"></div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 3: EVENTS                     -->
+<!-- ══════════════════════════════════════ -->
+<section id="s-events">
+  <p class="events-eyebrow reveal">The celebrations</p>
+
+  <div class="day-group reveal reveal-delay-1">
+    <p class="day-label">Day 1 — Tuesday, 26th August</p>
+    <div class="events-grid">
+      <div class="event-card" style="--event-color: #C4748A">
+        <div class="event-name">Mehendi</div>
+        <div class="event-detail">
+          <div>Time &nbsp;<strong>6:00 PM onwards</strong></div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--event-color: #7B52AB">
+        <div class="event-name">Sangeet</div>
+        <div class="event-detail">
+          <div>Time &nbsp;<strong>7:00 PM onwards</strong></div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--event-color: #D4A843">
+        <div class="event-name">Haldi</div>
+        <div class="event-detail">
+          <div>Time &nbsp;<strong>10:00 AM onwards</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="day-group reveal reveal-delay-2">
+    <p class="day-label">Day 2 — Wednesday, 27th August</p>
+    <div class="events-grid">
+      <div class="event-card" style="--event-color: #B8860B">
+        <div class="event-name">Wedding</div>
+        <div class="event-detail">
+          <div>Time &nbsp;<strong>Muhurat at 11:11 AM</strong></div>
+        </div>
+      </div>
+
+      <div class="event-card" style="--event-color: #0F6E56">
+        <div class="event-name">Reception</div>
+        <div class="event-detail">
+          <div>Time &nbsp;<strong>7:30 PM onwards</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 4: RSVP                       -->
+<!-- ══════════════════════════════════════ -->
+<section id="s-rsvp">
+  <p class="rsvp-eyebrow reveal">Please</p>
+  <h2 class="rsvp-heading reveal">RSVP</h2>
+
+  <form class="rsvp-form reveal reveal-delay-1" onsubmit="submitRSVP(event)">
+    <div>
+      <label>Your name</label>
+      <input type="text" placeholder="Full name" required id="rsvp-name">
+    </div>
+
+    <div>
+      <label>Phone number</label>
+      <input type="tel" placeholder="+1 XXXX XXX XXXX" required id="rsvp-phone">
+    </div>
+
+    <div>
+      <label>Number of guests</label>
+      <div class="guest-counter">
+        <label>Adults</label>
+        <button type="button" class="counter-btn" onclick="decrementGuests('adults')">−</button>
+        <input type="number" id="rsvp-adults" value="1" min="0" readonly>
+        <button type="button" class="counter-btn" onclick="incrementGuests('adults')">+</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="guest-counter">
+        <label>Kids</label>
+        <button type="button" class="counter-btn" onclick="decrementGuests('kids')">−</button>
+        <input type="number" id="rsvp-kids" value="0" min="0" readonly>
+        <button type="button" class="counter-btn" onclick="incrementGuests('kids')">+</button>
+      </div>
+    </div>
+
+    <div>
+      <label>Dietary notes</label>
+      <input type="text" placeholder="Vegetarian, Vegan, allergies…" id="rsvp-diet">
+    </div>
+
+    <button type="submit" class="rsvp-submit">Confirm attendance</button>
+  </form>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 5: COUNTDOWN                  -->
+<!-- ══════════════════════════════════════ -->
+<section id="s-countdown">
+  <p class="countdown-label reveal">The countdown begins</p>
+  <div class="countdown reveal">
+    <div class="count-unit"><span class="count-num" id="cd-days">00</span><span class="count-lab">Days</span></div>
+    <div class="count-sep">:</div>
+    <div class="count-unit"><span class="count-num" id="cd-hours">00</span><span class="count-lab">Hours</span></div>
+    <div class="count-sep">:</div>
+    <div class="count-unit"><span class="count-num" id="cd-mins">00</span><span class="count-lab">Minutes</span></div>
+    <div class="count-sep">:</div>
+    <div class="count-unit"><span class="count-num" id="cd-secs">00</span><span class="count-lab">Seconds</span></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 6: ALBUM                      -->
+<!-- ══════════════════════════════════════ -->
+<section id="s-album">
+  <p class="album-eyebrow reveal">After the celebrations</p>
+  <h2 class="album-heading reveal">The photo album</h2>
+  <p class="album-sub reveal">
+    Photos from all events will live here after August 27th.
+    Your memories, beautifully kept.
+  </p>
+
+  <div class="album-grid reveal reveal-delay-1">
+    <div class="album-frame">📷</div>
+    <div class="album-frame">📷</div>
+    <div class="album-frame">📷</div>
+    <div class="album-frame">📷</div>
+    <div class="album-frame">📷</div>
+  </div>
+
+  <a class="album-cta reveal" href="#">View full album after Aug 27 ↗</a>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 7: FOOTER                     -->
+<!-- ══════════════════════════════════════ -->
+<section id="s-footer">
+  <p class="footer-blessing reveal">
+    "Our families are overjoyed that you will be joining us —
+    your presence is the greatest gift."
+  </p>
+
+  <p class="footer-hashtag reveal">#AnvithWedsSneha</p>
+
+  <div class="footer-logo">A&S</div>
+</section>
+
+<script>
+// ── PETAL IMAGE SVGS ──────────────────────────────────────────
+const petalSVGs = [
+  'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 30"><path d="M10 0 Q15 10 10 30 Q5 10 10 0" fill="%23C4748A"/></svg>',
+  'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 25"><ellipse cx="10" cy="10" rx="8" ry="10" fill="%23D4A843" transform="rotate(-20 10 10)"/></svg>',
+  'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25"><path d="M12.5 2 Q18 8 12.5 20 Q7 8 12.5 2" fill="%23B8860B"/></svg>'
+];
+
+let petalImages = [];
+
+// Load petal images
+Promise.all(petalSVGs.map(svg => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = svg;
+    img.onload = () => resolve(img);
+    img.onerror = () => resolve(null);
+  });
+})).then(imgs => {
+  petalImages = imgs.filter(img => img !== null);
+});
+
+// ── PETALS ─────────────────────────────────────────────────────
+const canvas = document.getElementById('petal-canvas');
+const ctx = canvas.getContext('2d');
+let petals = [];
+let petalActive = false;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+function startPetals() {
+  petalActive = true;
+  for (let i = 0; i < 40; i++) spawnPetal(Math.random() * canvas.height);
+  animatePetals();
+}
+
+function spawnPetal(startY) {
+  const colors = ['#C4748A','#D4A843','#B8860B','#F0C8D0','#8B0000','#E8B4BC'];
+  petals.push({
+    x: Math.random() * canvas.width,
+    y: startY !== undefined ? startY : -20,
+    imageIndex: Math.floor(Math.random() * petalSVGs.length),
+    size: 15 + Math.random() * 15,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    vx: (Math.random() - 0.5) * 1.2,
+    vy: 0.8 + Math.random() * 1.5,
+    rot: Math.random() * Math.PI * 2,
+    rotV: (Math.random() - 0.5) * 0.06,
+    wobble: Math.random() * Math.PI * 2,
+    wobbleSpeed: 0.02 + Math.random() * 0.02,
+    opacity: 0.6 + Math.random() * 0.4
+  });
+}
+
+function drawPetal(p) {
+  ctx.save();
+  ctx.translate(p.x, p.y);
+  ctx.rotate(p.rot);
+  ctx.globalAlpha = p.opacity;
+  ctx.fillStyle = p.color;
+  ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+  ctx.restore();
+}
+
+function animatePetals() {
+  if (!petalActive) return;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (petals.length < 60 && Math.random() < 0.3) spawnPetal();
+
+  petals = petals.filter(p => p.y < canvas.height + 30);
+
+  petals.forEach(p => {
+    p.wobble += p.wobbleSpeed;
+    p.x += p.vx + Math.sin(p.wobble) * 0.6;
+    p.y += p.vy;
+    p.rot += p.rotV;
+    drawPetal(p);
+  });
+
+  requestAnimationFrame(animatePetals);
+}
+
+// ── MUSIC ──────────────────────────────────────────────────────
+let musicPlaying = false;
+const audio = document.getElementById('bg-audio');
+audio.volume = 0.35;
+
+function toggleMusic() {
+  if (musicPlaying) {
+    audio.pause();
+    musicPlaying = false;
+    document.getElementById('music-bars').classList.add('paused');
+  } else {
+    audio.play();
+    musicPlaying = true;
+    document.getElementById('music-bars').classList.remove('paused');
+  }
+}
+
+window.addEventListener('scroll', () => {
+  if (!petalActive) {
+    startPetals();
+    audio.play().then(() => { musicPlaying = true; }).catch(() => {});
+  }
+}, { once: true });
+
+// ── SCROLL REVEAL ──────────────────────────────────────────────
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.15 });
+revealEls.forEach(el => observer.observe(el));
+
+// ── GUEST COUNTER ──────────────────────────────────────────────
+function incrementGuests(type) {
+  const input = document.getElementById(`rsvp-${type}`);
+  input.value = parseInt(input.value) + 1;
+}
+
+function decrementGuests(type) {
+  const input = document.getElementById(`rsvp-${type}`);
+  if (parseInt(input.value) > 0) {
+    input.value = parseInt(input.value) - 1;
+  }
+}
+
+// ── COUNTDOWN ──────────────────────────────────────────────────
+function updateCountdown() {
+  const wedding = new Date('2026-08-27T11:11:00');
+  const now = new Date();
+  const diff = wedding - now;
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent = '00';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent = '00';
+    document.getElementById('cd-secs').textContent = '00';
+    return;
+  }
+  const d = Math.floor(diff / 86400000);
+  const h = Math.floor((diff % 86400000) / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  const s = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ── RSVP ───────────────────────────────────────────────────────
+let rsvpData = JSON.parse(localStorage.getItem('rsvpData')) || [];
+
+function submitRSVP(e) {
+  e.preventDefault();
+  const entry = {
+    name: document.getElementById('rsvp-name').value,
+    phone: document.getElementById('rsvp-phone').value,
+    adults: parseInt(document.getElementById('rsvp-adults').value),
+    kids: parseInt(document.getElementById('rsvp-kids').value),
+    diet: document.getElementById('rsvp-diet').value,
+    timestamp: new Date().toLocaleString()
+  };
+  rsvpData.push(entry);
+  localStorage.setItem('rsvpData', JSON.stringify(rsvpData));
+  alert('Thank you! Your RSVP has been recorded.');
+  document.querySelector('.rsvp-form').reset();
+  document.getElementById('rsvp-adults').value = '1';
+  document.getElementById('rsvp-kids').value = '0';
+}
+
+// ── ADMIN LOGIN ────────────────────────────────────────────────
+const ADMIN_EMAIL = 'anisha.vonna@gmail.com';
+const ADMIN_PASSWORD = 'TinkuSneha123#';
+
+function showLoginModal() {
+  document.getElementById('login-modal').classList.add('active');
+}
+
+function closeLoginModal() {
+  document.getElementById('login-modal').classList.remove('active');
+  document.getElementById('login-error').style.display = 'none';
+}
+
+function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  const errorDiv = document.getElementById('login-error');
+
+  if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+    closeLoginModal();
+    showDataView();
+  } else {
+    errorDiv.textContent = 'Invalid email or password';
+    errorDiv.style.display = 'block';
+  }
+}
+
+// ── DATA VIEW ──────────────────────────────────────────────────
+function showDataView() {
+  document.getElementById('data-view').classList.add('active');
+  populateTable();
+}
+
+function closeDataView() {
+  document.getElementById('data-view').classList.remove('active');
+}
+
+function populateTable() {
+  const tbody = document.getElementById('table-body');
+  tbody.innerHTML = '';
+  rsvpData.forEach(entry => {
+    const row = `
+      <tr>
+        <td>${entry.name}</td>
+        <td>${entry.phone}</td>
+        <td>${entry.adults}</td>
+        <td>${entry.kids}</td>
+        <td>${entry.diet || '—'}</td>
+        <td>${entry.timestamp}</td>
+      </tr>
+    `;
+    tbody.innerHTML += row;
+  });
+
+  const totalAdults = rsvpData.reduce((sum, e) => sum + e.adults, 0);
+  const totalKids = rsvpData.reduce((sum, e) => sum + e.kids, 0);
+  const summaryRow = `
+    <tr style="background:rgba(212,168,67,0.15);font-weight:bold;">
+      <td colspan="2">TOTAL</td>
+      <td>${totalAdults}</td>
+      <td>${totalKids}</td>
+      <td>Total Guests: ${totalAdults + totalKids}</td>
+      <td>${rsvpData.length} RSVPs</td>
+    </tr>
+  `;
+  tbody.innerHTML += summaryRow;
+}
+
+function downloadTableCSV() {
+  let csv = 'Name,Phone,Adults,Kids,Dietary Notes,Timestamp\n';
+  rsvpData.forEach(entry => {
+    csv += `"${entry.name}","${entry.phone}",${entry.adults},${entry.kids},"${entry.diet}","${entry.timestamp}"\n`;
+  });
+
+  const totalAdults = rsvpData.reduce((sum, e) => sum + e.adults, 0);
+  const totalKids = rsvpData.reduce((sum, e) => sum + e.kids, 0);
+  csv += `\n\nSUMMARY\n`;
+  csv += `Total RSVPs,${rsvpData.length}\n`;
+  csv += `Total Adults,${totalAdults}\n`;
+  csv += `Total Kids,${totalKids}\n`;
+  csv += `Total Guests,${totalAdults + totalKids}\n`;
+
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `rsvp_data_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+function sendToEmail() {
+  let csv = 'Name,Phone,Adults,Kids,Dietary Notes,Timestamp\n';
+  rsvpData.forEach(entry => {
+    csv += `"${entry.name}","${entry.phone}",${entry.adults},${entry.kids},"${entry.diet}","${entry.timestamp}"\n`;
+  });
+
+  const totalAdults = rsvpData.reduce((sum, e) => sum + e.adults, 0);
+  const totalKids = rsvpData.reduce((sum, e) => sum + e.kids, 0);
+  csv += `\n\nSUMMARY\n`;
+  csv += `Total RSVPs,${rsvpData.length}\n`;
+  csv += `Total Adults,${totalAdults}\n`;
+  csv += `Total Kids,${totalKids}\n`;
+  csv += `Total Guests,${totalAdults + totalKids}\n`;
+
+  const subject = encodeURIComponent('Anvith & Sneha Wedding - RSVP Data');
+  const body = encodeURIComponent(`Please find the RSVP data below:\n\n${csv}`);
+  window.location.href = `mailto:anisha.vonna@gmail.com?subject=${subject}&body=${body}`;
+}
+</script>
+</body>
+</html>
